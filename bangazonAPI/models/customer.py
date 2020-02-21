@@ -4,7 +4,7 @@ from django.db.models import F
 
 
 class Customer(models.Model):
-    user = models.models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
         ordering = (F('user.date_joined').asc(nulls_last = True), )

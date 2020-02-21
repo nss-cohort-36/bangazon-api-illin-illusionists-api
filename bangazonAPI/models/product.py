@@ -11,11 +11,11 @@ class Product(models.Model):
     description = models.CharField(max_length=255)
     quantity = models.IntegerField()
     location = models.CharField(max_length=75, null=True)
-    image_path = models.models.CharField(max_length=255)
+    image_path = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, null=True)
 
-    class Meta(self):
+    class Meta:
         ordering = (F("created_at").desc(), )
 
     def __str__(self):

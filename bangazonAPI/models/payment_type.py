@@ -9,7 +9,7 @@ class PaymentType(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-    class Meta(self):
+    class Meta:
         ordering = (F("expiration_date").desc(), )
 
     def __str__(self):

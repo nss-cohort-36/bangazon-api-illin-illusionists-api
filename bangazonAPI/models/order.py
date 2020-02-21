@@ -8,7 +8,7 @@ class Order(models.Model):
     payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
-    class Meta(self):
+    class Meta:
         ordering = (F("created_at").desc(), )
 
     # def __str__(self):
