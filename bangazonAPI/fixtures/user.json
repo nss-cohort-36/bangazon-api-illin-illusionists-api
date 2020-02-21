@@ -1,0 +1,15 @@
+[
+    {
+      "model": "auth.user",
+      "pk": 2,
+      "fields": {
+        "password": "pbkdf2_sha256$150000$10yCtpQpDTEI$PwDkDJvyKpH7xSLQhOXl2yY7t3yxu59/l6eEtDT0Hm8=",
+        "last_login": null, "is_superuser": false, "username": "hr_fred", "first_name": "Fred",
+        "last_name": "Jones",
+        "email": "fred@bangazon.com",
+        "is_staff": false,
+        "is_active": true, 
+        "date_joined": "2019-09-23T14:06:30.047Z"
+      }
+    }
+  ]

@@ -1,0 +1,10 @@
+[
+    {
+        "model": "bangazonAPI.orderproduct",
+        "pk": 1,
+        "fields": {
+            "order": 1,
+            "product": 1
+        }
+      }
+]
