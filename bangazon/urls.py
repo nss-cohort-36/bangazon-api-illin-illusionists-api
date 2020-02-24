@@ -18,12 +18,13 @@ from django.urls import include, path
 from rest_framework import routers
 from bangazonAPI.views import OrderProducts, register_user, login_user
 from rest_framework.authtoken.views import obtain_auth_token
-from bangazonAPI.views import register_user, login_user, PaymentTypes, ProductTypes
+from bangazonAPI.views import register_user, login_user, PaymentTypes, ProductTypes, Orders
 from bangazonAPI.models import *
 from bangazonAPI.views import *
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'orderproducts', OrderProducts, 'orderproduct')
+router.register(r'orders', Orders, 'order')
 router.register(r'products', Products, 'product')
 router.register(r'paymenttypes', PaymentTypes, 'paymenttypes')
 router.register(r'producttypes', ProductTypes, 'producttypes')
