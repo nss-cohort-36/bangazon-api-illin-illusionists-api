@@ -19,9 +19,9 @@ from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 from bangazonAPI.views import register_user, login_user, PaymentTypes, ProductTypes, Orders
 from bangazonAPI.models import *
-router.register(r'orders', Orders, 'order')
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'orders', Orders, 'order')
 router.register(r'paymenttypes', PaymentTypes, 'paymenttypes')
 router.register(r'producttypes', ProductTypes, 'producttypes')
 
