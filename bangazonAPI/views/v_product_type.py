@@ -70,7 +70,7 @@ class ProductTypes(ViewSet):
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def update(self, request, pk=None):
-        """Handle PUT requests for an individual itinerary item
+        """Handle PUT requests for an individual product type item
         Returns:
             Response -- Empty body with 204 status code
         """
