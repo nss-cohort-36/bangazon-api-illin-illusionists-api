@@ -14,8 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from bangazonAPI.views import OrderProducts
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'orderproducts', OrderProducts, 'orderproduct')
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
