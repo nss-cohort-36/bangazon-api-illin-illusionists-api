@@ -69,7 +69,32 @@ class OrderProducts(ViewSet):
 
         return Response(serializer.data)
 
-    # def update(self, request, pk=None):
+    def update(self, request, pk=None):
+        """
+        Handles PUT request for Order Product
 
+        Returns:
+            Response -- empty body with 204 status code
+        """
+        order_product = OrderProduct.objects.get(pk=pk)
+        order_product.order_id = request.data['order_id']
+        order_product.product_id = request.data['product_id']
+        order_product.save()
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
     
-    # def destroy(self, request, pk=None):
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single order product
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            order_product = OrderProduct.objects.get(pk=pk)
+            order_product.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except OrderProduct.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
