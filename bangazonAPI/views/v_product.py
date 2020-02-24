@@ -65,7 +65,6 @@ class Products (ViewSet):
         newproduct.quantity = request.data["quantity"]
         newproduct.location = request.data["location"]
         newproduct.image_path = request.data["image_path"]
-        newproduct.created_at = request.data["created_at"]
         newproduct.product_type_id = request.data["product_type_id"]
 
         newproduct.save()
@@ -106,7 +105,6 @@ class Products (ViewSet):
         productItem.quantity = request.data["quantity"]
         productItem.location = request.data["location"]
         productItem.image_path = request.data["image_path"]
-        productItem.created_at = request.data["created_at"]
         productItem.product_type_id = request.data["product_type_id"]
         productItem.save()
         return Response({}, status=status.HTTP_204_NO_CONTENT)
