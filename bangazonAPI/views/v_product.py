@@ -3,6 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
+from rest_framework import status
 from bangazonAPI.models import Product
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -49,3 +50,56 @@ class Products (ViewSet):
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
+    # Handles POSTs
+    def create(self, request):
+        """Handle POST operations
+
+        Returns:
+            Response -- JSON serialized Product instance
+        """
+        newproduct = Product()
+        newproduct.customer_id = request.auth.user.customer.id
+        newproduct.name = request.data["name"]
+        newproduct.price = request.data["price"]
+        newproduct.description = request.data["description"]
+        newproduct.quantity = request.data["quantity"]
+        newproduct.location = request.data["location"]
+        newproduct.image_path = request.data["image_path"]
+        newproduct.created_at = request.data["created_at"]
+        newproduct.product_type = request.data["product_type_id"]
+
+        newproduct.save()
+
+        serializer = ProductSerializer(newproduct, context={'request': request})
+
+        return Response(serializer.data)
+     # handles DELETE
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single product
+
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            productItem = Product.objects.get(pk=pk)
+            productItem.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except productItem.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# handles PUT
+    def update(self, request, pk=None):
+         """Handle PUT requests for a park area
+
+          Returns:
+          Response -- Empty body with 204 status code
+         """
+         productItem = Product.objects.get(pk=pk)
+         productItem.starttime = request.data["starttime"]
+         productItem.save()
+
+         return Response({}, status=status.HTTP_204_NO_CONTENT)
