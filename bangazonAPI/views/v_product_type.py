@@ -51,45 +51,43 @@ class ProductTypes(ViewSet):
 
         return Response(serializer.data)
 
-    # def destroy(self, request, pk=None):
-    #     """Handle DELETE requests to product type resource
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests to product type resource
 
-    #     Returns:
-    #         Response -- JSON serialized detail of deleted product type
-    #     """
-    #     try:
-    #         producttype = ProductType.objects.get(pk=pk)
-    #         producttype.delete()
+        Returns:
+            Response -- JSON serialized detail of deleted product type
+        """
+        try:
+            producttype = ProductType.objects.get(pk=pk)
+            producttype.delete()
 
-    #         return Response({}, status=status.HTTP_204_NO_CONTENT)
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-    #     except ProductType.DoesNotExist as ex:
-    #         return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        except ProductType.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
-    #     except Exception as ex:
-    #         return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    # def update(self, request, pk=None):
-    #     """Handle PUT requests for an individual itinerary item
-    #     Returns:
-    #         Response -- Empty body with 204 status code
-    #     """
-    #     producttype = ProductType.objects.get(pk=pk)
-    #     producttype.name = request.data["name"]
-    #     producttype.area_id = request.data["area_id"]
+    def update(self, request, pk=None):
+        """Handle PUT requests for an individual itinerary item
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        producttype = ProductType.objects.get(pk=pk)
+        producttype.name = request.data["name"]
 
-    #     producttype.save()
+        producttype.save()
 
-    #     return Response({}, status=status.HTTP_204_NO_CONTENT)
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     
-    # def create(self, request):
-    #     new_prdducttype = ProductType()
-    #     new_prdducttype.name = request.data["name"]
-    #     new_prdducttype.area_id = request.data["area_id"]
+    def create(self, request):
+        new_producttype = ProductType()
+        new_producttype.name = request.data["name"]
 
-    #     new_prdducttype.save()
+        new_producttype.save()
 
-    #     serializer = ProductTypeSerializer(new_attraction, context={'request': request})
+        serializer = ProductTypeSerializer(new_producttype, context={'request': request})
 
-    #     return Response(serializer.data)
+        return Response(serializer.data)

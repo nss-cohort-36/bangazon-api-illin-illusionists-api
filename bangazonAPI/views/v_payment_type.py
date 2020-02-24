@@ -55,3 +55,52 @@ class PaymentTypes(ViewSet):
         serializer = PaymentTypeSerializer(payment_types, many = True, context={'request': request})
 
         return Response(serializer.data)
+
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests to product type resource
+
+        Returns:
+            Response -- JSON serialized detail of deleted product type
+        """
+        try:
+            paymenttype = PaymentType.objects.get(pk=pk)
+            paymenttype.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except PaymentType.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def update(self, request, pk=None):
+        """Handle PUT requests for an individual itinerary item
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        paymenttype = PaymentType.objects.get(pk=pk)
+        paymenttype.merchant_name = request.data["merchant_name"]
+        paymenttype.acct_no = request.data["acct_no"]
+        paymenttype.expiration_date = request.data["expiration_date"]
+        paymenttype.customer_id = request.data["customer"]
+        paymenttype.created_at = request.data["created_at"]
+
+        paymenttype.save()
+
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+    
+    def create(self, request):
+        new_paymenttype = PaymentType()
+        new_paymenttype.merchant_name = request.data["merchant_name"]
+        new_paymenttype.acct_no = request.data["acct_no"]
+        new_paymenttype.expiration_date = request.data["expiration_date"]
+        new_paymenttype.customer_id = request.data["customer"]
+        new_paymenttype.created_at = request.data["created_at"]
+
+        new_paymenttype.save()
+
+        serializer = PaymentTypeSerializer(new_paymenttype, context={'request': request})
+
+        return Response(serializer.data)
