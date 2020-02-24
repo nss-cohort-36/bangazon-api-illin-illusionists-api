@@ -83,8 +83,7 @@ class PaymentTypes(ViewSet):
         paymenttype.merchant_name = request.data["merchant_name"]
         paymenttype.acct_no = request.data["acct_no"]
         paymenttype.expiration_date = request.data["expiration_date"]
-        paymenttype.customer_id = request.data["customer"]
-        paymenttype.created_at = request.data["created_at"]
+        paymenttype.customer_id = request.auth.user.customer.id
 
         paymenttype.save()
 
@@ -96,8 +95,7 @@ class PaymentTypes(ViewSet):
         new_paymenttype.merchant_name = request.data["merchant_name"]
         new_paymenttype.acct_no = request.data["acct_no"]
         new_paymenttype.expiration_date = request.data["expiration_date"]
-        new_paymenttype.customer_id = request.data["customer"]
-        new_paymenttype.created_at = request.data["created_at"]
+        new_paymenttype.customer_id = request.auth.user.customer.id
 
         new_paymenttype.save()
 
