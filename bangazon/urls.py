@@ -14,13 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
+from bangazonAPI.views import register_user, login_user, PaymentTypes, ProductTypes
 from bangazonAPI.models import *
-from bangazonAPI.views import register_user, login_user
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'paymenttypes', PaymentTypes, 'paymenttypes')
+router.register(r'producttypes', ProductTypes, 'producttypes')
 
 urlpatterns = [
     path('', include(router.urls)),
