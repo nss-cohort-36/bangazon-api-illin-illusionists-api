@@ -16,12 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from bangazonAPI.views import OrderProducts
+from bangazonAPI.views import OrderProducts, register_user, login_user
+from rest_framework.authtoken.views import obtain_auth_token
+from bangazonAPI.models import *
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'orderproducts', OrderProducts, 'orderproduct')
 
+
 urlpatterns = [
     path('', include(router.urls)),
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
+    path('register', register_user),
+    path('login', login_user),
+    path('api-token-auth', obtain_auth_token),
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
 ]

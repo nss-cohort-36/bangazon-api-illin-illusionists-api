@@ -60,4 +60,11 @@ class OrderProducts(ViewSet):
             Response -- JSON serialized Order Product instance
         """
         new_order_product = OrderProduct()
+        new_order_product.order_id = request.data['order_id']
+        new_order_product.product_id = request.data['product_id']
 
+        new_order_product.save()
+
+        serializer = OrderProductSerializer(new_order_product, context={'request': request})
+
+        return Response(serializer.data)
