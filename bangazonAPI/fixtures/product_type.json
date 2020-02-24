@@ -1,0 +1,9 @@
+[
+    {
+        "model": "bangazonAPI.producttype",
+        "pk": 1,
+        "fields": {
+            "name": "booky book"
+        }
+      }
+]
