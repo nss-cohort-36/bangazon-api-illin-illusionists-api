@@ -9,5 +9,3 @@ class OrderProduct(models.Model):
 
     class Meta:
         ordering = (F("order").desc(),)
-
-    
