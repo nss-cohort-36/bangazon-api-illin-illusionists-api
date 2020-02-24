@@ -24,7 +24,7 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
         
 class Orders(ViewSet):
     """Orders view for Bangazon API"""
-    # ! Ask why this one doesn't work but the other one does with a different naming convention
+    
     def retrieve(self, request, pk=None):
         """Handle GET requests for a single itinerary item
 
@@ -39,6 +39,7 @@ class Orders(ViewSet):
             return HttpResponseServerError(ex)
     
     
+    # ! Ask why this one doesn't work but the other one does with a different naming convention
     # def retrieve(self, request, pk=None):
     #     """Handles the GET request for a single order
         
