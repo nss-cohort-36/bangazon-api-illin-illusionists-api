@@ -4,7 +4,7 @@
         "pk": 1,
         "fields": {
             "name": "books",
-            "customer_id": 1,
+            "customer_id": 2,
             "price": 20.22,
             "description": "guide to success",
             "quantity": 10,
