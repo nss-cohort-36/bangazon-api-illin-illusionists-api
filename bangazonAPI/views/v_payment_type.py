@@ -57,10 +57,10 @@ class PaymentTypes(ViewSet):
         return Response(serializer.data)
 
     def destroy(self, request, pk=None):
-        """Handle DELETE requests to product type resource
+        """Handle DELETE requests to payment type resource
 
         Returns:
-            Response -- JSON serialized detail of deleted product type
+            Response -- JSON serialized detail of deleted payment type
         """
         try:
             paymenttype = PaymentType.objects.get(pk=pk)
@@ -75,7 +75,7 @@ class PaymentTypes(ViewSet):
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def update(self, request, pk=None):
-        """Handle PUT requests for an individual itinerary item
+        """Handle PUT requests for an individual payment type item
         Returns:
             Response -- Empty body with 204 status code
         """
