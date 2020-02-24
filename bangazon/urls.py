@@ -20,9 +20,11 @@ from bangazonAPI.views import OrderProducts, register_user, login_user
 from rest_framework.authtoken.views import obtain_auth_token
 from bangazonAPI.views import register_user, login_user, PaymentTypes, ProductTypes
 from bangazonAPI.models import *
+from bangazonAPI.views import *
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'orderproducts', OrderProducts, 'orderproduct')
+router.register(r'products', Products, 'product')
 router.register(r'paymenttypes', PaymentTypes, 'paymenttypes')
 router.register(r'producttypes', ProductTypes, 'producttypes')
 
@@ -32,5 +34,5 @@ urlpatterns = [
     path('register', register_user),
     path('login', login_user),
     path('api-token-auth', obtain_auth_token),
-    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework'))
 ]
