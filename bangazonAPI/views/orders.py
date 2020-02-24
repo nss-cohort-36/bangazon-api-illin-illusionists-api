@@ -25,6 +25,23 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
 class Orders(ViewSet):
     """Orders view for Bangazon API"""
     
+    def create(self, request):
+        """Handle POST operations
+
+        Returns:
+            Response -- JSON serialized Order instance
+        """
+        # Start by creating a new instance of the Order model
+        new_order = Order()
+        # The request.data["str"] expression evaluates the key names from your models and saves those values in your new model instance.
+        new_order.name = request.data["created_at"]  
+        new_order.customer_id = request.auth.user.customer.id
+        new_order.save() # saves your instance to the db
+
+        # Pass the new model instance into the serializer, while declaring the context object as request serialized instance
+        serializer = AttractionSerializer(newattraction, context={'request': request})
+    
+    
     def retrieve(self, request, pk=None):
         """Handle GET requests for a single itinerary item
 
