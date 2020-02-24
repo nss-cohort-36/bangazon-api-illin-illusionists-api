@@ -4,7 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from bangazonAPI.models import Product
+from bangazonAPI.models import Product, ProductType
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for products
@@ -15,7 +15,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         url = serializers.HyperlinkedIdentityField(
-            view_name='product',
+            view_name='products',
             lookup_field='id'
         )
         fields = ('id', 'url', 'name', 'customer_id', 'price', 'description','quantity', 'location', 'image_path', 'created_at', 'product_type_id')
@@ -66,7 +66,7 @@ class Products (ViewSet):
         newproduct.location = request.data["location"]
         newproduct.image_path = request.data["image_path"]
         newproduct.created_at = request.data["created_at"]
-        newproduct.product_type = request.data["product_type_id"]
+        newproduct.product_type_id = request.data["product_type_id"]
 
         newproduct.save()
 
@@ -93,13 +93,11 @@ class Products (ViewSet):
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 # handles PUT
     def update(self, request, pk=None):
-         """Handle PUT requests for a park area
+        """Handle PUT requests for a park area
 
-          Returns:
-          Response -- Empty body with 204 status code
-         """
-         productItem = Product.objects.get(pk=pk)
-         productItem.starttime = request.data["starttime"]
-         productItem.save()
-
-         return Response({}, status=status.HTTP_204_NO_CONTENT)
+        Returns:
+        Response -- Empty body with 204 status code
+        """
+        productItem = Product.objects.get(pk=pk)
+        productItem.save()
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
