@@ -68,3 +68,8 @@ class OrderProducts(ViewSet):
         serializer = OrderProductSerializer(new_order_product, context={'request': request})
 
         return Response(serializer.data)
+
+    # def update(self, request, pk=None):
+
+    
+    # def destroy(self, request, pk=None):
