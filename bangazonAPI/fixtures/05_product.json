@@ -3,15 +3,330 @@
         "model": "bangazonAPI.product",
         "pk": 1,
         "fields": {
-            "name": "books",
+            "name": "a",
             "customer_id": 2,
-            "price": 20.22,
+            "price": 1120.22,
             "description": "guide to success",
             "quantity": 10,
             "location": "Nashville",
             "image_path": "c:/1.png",
             "product_type": 1,
-            "created_at": "2019-09-23T14:06:30.047Z"
+            "created_at": "2019-09-01T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 2,
+        "fields": {
+            "name": "b",
+            "customer_id": 2,
+            "price": 2.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-02T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 3,
+        "fields": {
+            "name": "c",
+            "customer_id": 2,
+            "price": 209.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-03T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 4,
+        "fields": {
+            "name": "d",
+            "customer_id": 2,
+            "price": 200.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-04T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 5,
+        "fields": {
+            "name": "e",
+            "customer_id": 2,
+            "price": 270.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-05T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 6,
+        "fields": {
+            "name": "f",
+            "customer_id": 2,
+            "price": 204.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-06T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 7,
+        "fields": {
+            "name": "g",
+            "customer_id": 2,
+            "price": 260.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-07T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 8,
+        "fields": {
+            "name": "h",
+            "customer_id": 2,
+            "price": 206.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-08T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 9,
+        "fields": {
+            "name": "i",
+            "customer_id": 2,
+            "price": 208.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-09T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 10,
+        "fields": {
+            "name": "j",
+            "customer_id": 2,
+            "price": 620.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-10T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 11,
+        "fields": {
+            "name": "k",
+            "customer_id": 2,
+            "price": 220.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-11T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 12,
+        "fields": {
+            "name": "l",
+            "customer_id": 2,
+            "price": 720.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-12T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 13,
+        "fields": {
+            "name": "m",
+            "customer_id": 2,
+            "price": 8920.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-13T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 14,
+        "fields": {
+            "name": "n",
+            "customer_id": 2,
+            "price": 720.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-14T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 15,
+        "fields": {
+            "name": "o",
+            "customer_id": 2,
+            "price": 5073.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-15T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 16,
+        "fields": {
+            "name": "p",
+            "customer_id": 2,
+            "price": 2990.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-16T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 17,
+        "fields": {
+            "name": "q",
+            "customer_id": 2,
+            "price": 2220.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-17T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 18,
+        "fields": {
+            "name": "r",
+            "customer_id": 2,
+            "price": 2780.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-18T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 19,
+        "fields": {
+            "name": "s",
+            "customer_id": 2,
+            "price": 520.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-19T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 20,
+        "fields": {
+            "name": "t",
+            "customer_id": 2,
+            "price": 120.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-20T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 21,
+        "fields": {
+            "name": "u",
+            "customer_id": 2,
+            "price": 240.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-21T14:06:30.047Z"
+        }
+      },
+    {
+        "model": "bangazonAPI.product",
+        "pk": 22,
+        "fields": {
+            "name": "v",
+            "customer_id": 2,
+            "price": 202.22,
+            "description": "guide to success",
+            "quantity": 10,
+            "location": "Nashville",
+            "image_path": "c:/1.png",
+            "product_type": 1,
+            "created_at": "2019-09-22T14:06:30.047Z"
         }
       }
 ]
