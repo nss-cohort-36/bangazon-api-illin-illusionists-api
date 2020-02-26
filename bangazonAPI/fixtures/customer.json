@@ -1,9 +1,0 @@
-[
-    {
-        "model": "bangazonAPI.customer",
-        "pk": 1,
-        "fields": {
-            "user_id": 2
-        }
-      }
-]
