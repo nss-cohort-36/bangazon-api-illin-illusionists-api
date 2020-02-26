@@ -10,7 +10,7 @@
  `source ./bangazonEnv/bin/activate` (Mac)  
  `source ./bangazonEnv/Scripts/activate` (PC)  
 1. Install dependencies using `pip install -r requirements.txt`
-1. Run `python manage.py makemigrations bangazonAPI`
+1. Run `python manage.py makemigrations`
 1. Run `python manage.py migrate` to create base table schema
 
 ## Running the Server
@@ -18,7 +18,7 @@
 1. Navigate to `http://127.0.0.1:8000/` to view the Browsable API
 
 ## Loading Test Data
-1. From the root folder, run `python manage.py loaddata bangazonAPI/fixtures/*.json`
+1. From the root folder, run `python manage.py loaddata bangazonAPI/fixtures/bangazon.json`
 
 ## Browsing the API
 1. You have the following endpoints available:
