@@ -34,7 +34,7 @@ class Products (ViewSet):
         if limit is None:
             products = Product.objects.all()
         else:
-            products = Product.objects.order_by('created_at')[0:int(limit)]
+            products = Product.objects.order_by('-created_at')[0:int(limit)]
 
         serializer = ProductSerializer(
             products,
