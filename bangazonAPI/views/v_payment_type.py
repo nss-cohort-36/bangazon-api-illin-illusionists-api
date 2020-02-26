@@ -18,9 +18,9 @@ class PaymentTypeSerializer(serializers.HyperlinkedModelSerializer):
             view_name='paymenttypes',
             lookup_field='id'
         )
-        fields = ('id', 'merchant_name', 'acct_no', 'expiration_date', 'customer_id', 'created_at')
+        fields = ('id', 'merchant_name', 'acct_no', 'expiration_date', 'customer', 'created_at')
         # customer is not currently a field
-        depth = 2
+        depth = 4
 
 class PaymentTypes(ViewSet):
     def retrieve(self, request, pk=None):
