@@ -30,12 +30,20 @@ class Products (ViewSet):
         Returns:
             Response -- JSON serialized product instance
         """
-        products = Product.objects.all()
+        limit = self.request.query_params.get('limit')
+
+        if limit is None:
+            products = Product.objects.all()
+        else:
+            products = Product.objects.order_by('-created_at')[0:int(limit)]
+
         serializer = ProductSerializer(
             products,
             many=True,
             context={'request': request}
         )
+
+
         return Response(serializer.data)
 
     # handles GET one
