@@ -50,7 +50,7 @@ class Customers(ViewSet):
             Response -- JSON serialized list of customers
         """       
 
-        customers = Customer.objects.all()
+        customers = Customer.objects.filter(id = request.auth.user.customer.id)
 
         # customer = self.request.query_params.get('customer', None)
 
