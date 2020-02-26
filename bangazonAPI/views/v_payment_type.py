@@ -15,12 +15,12 @@ class PaymentTypeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PaymentType
         url = serializers.HyperlinkedIdentityField(
-            view_name='paymenttype',
+            view_name='paymenttypes',
             lookup_field='id'
         )
-        fields = ('id', 'merchant_name', 'acct_no', 'expiration_date', 'customer_id', 'created_at')
+        fields = ('id', 'merchant_name', 'acct_no', 'expiration_date', 'customer_id', 'customer', 'created_at')
         # customer is not currently a field
-        depth = 2
+        depth = 4
 
 class PaymentTypes(ViewSet):
     def retrieve(self, request, pk=None):
@@ -45,7 +45,7 @@ class PaymentTypes(ViewSet):
             Response -- JSON serialized list of payment types
         """       
 
-        payment_types = PaymentType.objects.all()
+        payment_types = PaymentType.objects.filter(customer_id = request.auth.user.customer.id)
 
         customer = self.request.query_params.get('customer', None)
 
