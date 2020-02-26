@@ -19,7 +19,7 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field = 'id'
         )
         
-        fields = ('id', 'customer', 'payment_type', 'created_at')
+        fields = ('id', 'customer_id','customer', 'payment_type_id', 'payment_type', 'created_at')
         depth = 3
         
 class Orders(ViewSet):

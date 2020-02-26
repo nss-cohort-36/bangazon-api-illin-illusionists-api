@@ -18,7 +18,7 @@ class PaymentTypeSerializer(serializers.HyperlinkedModelSerializer):
             view_name='paymenttypes',
             lookup_field='id'
         )
-        fields = ('id', 'merchant_name', 'acct_no', 'expiration_date', 'customer', 'created_at')
+        fields = ('id', 'merchant_name', 'acct_no', 'expiration_date', 'customer_id', 'customer', 'created_at')
         # customer is not currently a field
         depth = 4
 
