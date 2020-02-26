@@ -10,7 +10,7 @@ class Customer(models.Model):
         ordering = (F('user.date_joined').asc(nulls_last = True), )
 
     def __str__ (self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.user.first_name} {self.user.last_name}'
 
 
 
