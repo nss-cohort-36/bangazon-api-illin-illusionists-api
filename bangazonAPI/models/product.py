@@ -21,7 +21,7 @@ class Product(SafeDeleteModel):
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE, null=True)
 
     class Meta:
-        ordering = (F("created_at").desc(), )
+        ordering = (F("created_at").asc(), )
 
     def __str__(self):
         return self.name
