@@ -23,9 +23,9 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
 
-        fields = ('id', 'user')
+        fields = ('id', 'user',)
         # customer is not currently a field
-        depth = 4
+        depth = 2
 
 class Customers(ViewSet):
     def retrieve(self, request, pk=None):
@@ -50,7 +50,7 @@ class Customers(ViewSet):
             Response -- JSON serialized list of customers
         """       
 
-        customers = Customer.objects.all()
+        customers = Customer.objects.filter(id = request.auth.user.customer.id)
 
         # customer = self.request.query_params.get('customer', None)
 
