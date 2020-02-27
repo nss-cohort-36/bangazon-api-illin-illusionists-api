@@ -103,6 +103,10 @@ class Orders(ViewSet):
         # Get all instances of orders from the db and store in the orders variable
         orders = Order.objects.all()
 
+        payment_type = self.request.query_params.get('payment_type', None)
+        if payment_type is None:
+            orders = orders.filter(payment_type__id=payment_type)
+
         serializer = OrderSerializer(
             orders,
             many=True,
