@@ -19,7 +19,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         
-        fields = ('id', 'username',)
+        fields = ('id', 'username','first_name', 'last_name', 'email')
         # customer is not currently a field
         # depth = 2
 
@@ -75,20 +75,19 @@ class Users(ViewSet):
     #     except Exception as ex:
     #         return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    # def update(self, request, pk=None):
-    #     """Handle PUT requests for an individual payment type item
-    #     Returns:
-    #         Response -- Empty body with 204 status code
-    #     """
-    #     paymenttype = PaymentType.objects.get(pk=pk)
-    #     paymenttype.merchant_name = request.data["merchant_name"]
-    #     paymenttype.acct_no = request.data["acct_no"]
-    #     paymenttype.expiration_date = request.data["expiration_date"]
-    #     paymenttype.customer_id = request.auth.user.customer.id
+    def partial_update(self, request, pk=None):
+        """Handle PATCH requests for a customer
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        user = User.objects.get(pk=pk)
+        user.first_name = request.data["first_name"]
+        user.last_name = request.data["last_name"]
+        user.email = request.data["email"]
 
-    #     paymenttype.save()
+        user.save()
 
-    #     return Response({}, status=status.HTTP_204_NO_CONTENT)
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     
     # def create(self, request):
