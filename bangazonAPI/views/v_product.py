@@ -32,10 +32,15 @@ class Products (ViewSet):
         """
         limit = self.request.query_params.get('limit')
 
+        location = self.request.query_params.get('location')
+
         if limit is None:
             products = Product.objects.all()
         else:
             products = Product.objects.order_by('-created_at')[0:int(limit)]
+
+        if location is not None:
+            products = products.filter(location = location)
 
         serializer = ProductSerializer(
             products,
