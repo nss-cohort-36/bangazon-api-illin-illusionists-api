@@ -45,7 +45,15 @@ class OrderProducts(ViewSet):
         Returns:
             Response -- JSON list of serialized Order Product list
         """
-        order_products = OrderProduct.objects.all()
+
+        order_id = request.query_params.get('order', None)
+        
+        if order_id is not None:
+            order_products = OrderProduct.objects.filter(order__id=order_id)
+        else:
+            order_products = OrderProduct.objects.all()
+
+
         serializer = OrderProductSerializer(
             order_products,
             many=True,

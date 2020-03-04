@@ -99,9 +99,14 @@ class Orders(ViewSet):
         Returns:
             A serialized list of all orders
         """
-        
+
         # Get all instances of orders from the db and store in the orders variable
         orders = Order.objects.all()
+
+        customer_only = request.query_params.get('self', False)
+
+        if customer_only == 'true':
+          orders = orders.filter(customer__id=request.auth.user.customer.id)
 
         serializer = OrderSerializer(
             orders,
