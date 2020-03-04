@@ -1,9 +1,11 @@
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework import serializers
 from rest_framework import status
 from bangazonAPI.models import OrderProduct, Product, Order, Customer
+
 
 class OrderProductSerializer(serializers.HyperlinkedModelSerializer):
     """
@@ -21,6 +23,7 @@ class OrderProductSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'order_id', 'order', 'product_id', 'product')
         depth = 3
 
+
 class OrderProducts(ViewSet):
     """ Order Product Information """
 
@@ -33,7 +36,8 @@ class OrderProducts(ViewSet):
         """
         try:
             order_product = OrderProduct.objects.get(pk=pk)
-            serializer = OrderProductSerializer(order_product, context={'request', request})
+            serializer = OrderProductSerializer(
+                order_product, context={'request', request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
@@ -61,22 +65,22 @@ class OrderProducts(ViewSet):
         )
         return Response(serializer.data)
 
-    def create(self, request):
-        """
-        Handles POST request for Order Product
+    # def create(self, request):
+    #     """
+    #     Handles POST request for Order Product
 
-        Returns:
-            Response -- JSON serialized Order Product instance
-        """
-        new_order_product = OrderProduct()
-        new_order_product.order_id = request.data['order_id']
-        new_order_product.product_id = request.data['product_id']
+    #     Returns:
+    #         Response -- JSON serialized Order Product instance
+    #     """
+    #     new_order_product = OrderProduct()
+    #     new_order_product.order_id = request.data['order_id']
+    #     new_order_product.product_id = request.data['product_id']
 
-        new_order_product.save()
+    #     new_order_product.save()
 
-        serializer = OrderProductSerializer(new_order_product, context={'request': request})
+    #     serializer = OrderProductSerializer(new_order_product, context={'request': request})
 
-        return Response(serializer.data)
+    #     return Response(serializer.data)
 
     def update(self, request, pk=None):
         """
@@ -90,7 +94,7 @@ class OrderProducts(ViewSet):
         order_product.product_id = request.data['product_id']
         order_product.save()
         return Response({}, status=status.HTTP_204_NO_CONTENT)
-    
+
     def destroy(self, request, pk=None):
         """Handle DELETE requests for a single order product
         Returns:
@@ -107,3 +111,27 @@ class OrderProducts(ViewSet):
 
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    @action(detail=False, methods=['post'])
+    def cart(self, request):
+        current_user = Customer.objects.get(user=request.auth.user.customer.id)
+
+        try:
+            open_order = Order.objects.get(
+                customer=current_user, payment_type=None)
+
+        except Order.DoesNotExist:
+            open_order = Order()
+            open_order.customer_id = request.auth.user.customer.id
+            # open_order.payment_type = None
+            open_order.save()
+
+        new_order_product = OrderProduct()
+        new_order_product.order_id = open_order.id
+        new_order_product.product_id = request.data['product_id']
+        new_order_product.save()
+
+        serializer = OrderProductSerializer(
+            new_order_product, context={'request': request})
+
+        return Response(serializer.data)
