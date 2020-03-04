@@ -47,11 +47,18 @@ class OrderProducts(ViewSet):
         """
 
         product_id = self.request.query_params.get('product')
+        order_id = request.query_params.get('order', None)
 
         if product_id:
             order_products = OrderProduct.objects.filter(product_id=product_id)
         else:
             order_products = OrderProduct.objects.all()
+
+        if order_id is not None:
+            order_products = OrderProduct.objects.filter(order__id=order_id)
+        else:
+            order_products = OrderProduct.objects.all()
+
 
         serializer = OrderProductSerializer(
             order_products,
