@@ -31,11 +31,17 @@ class Products (ViewSet):
             Response -- JSON serialized product instance
         """
         limit = self.request.query_params.get('limit')
+        user = self.request.query_params.get('self')
 
-        if limit is None:
-            products = Product.objects.all()
-        else:
+        products = Product.objects.all()
+
+        # filter for the 'home' view
+        if limit:
             products = Product.objects.order_by('-created_at')[0:int(limit)]
+
+        # filter for the 'myProducts' view
+        if user == "true":
+            products = Product.objects.filter(customer_id=request.auth.user.customer.id)
 
         serializer = ProductSerializer(
             products,
