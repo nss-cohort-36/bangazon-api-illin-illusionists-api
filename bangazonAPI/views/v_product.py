@@ -31,6 +31,7 @@ class Products (ViewSet):
             Response -- JSON serialized product instance
         """
         limit = self.request.query_params.get('limit')
+        category = self.request.query_params.get('category', None)
         user = self.request.query_params.get('self')
 
         location = self.request.query_params.get('location')
@@ -52,10 +53,16 @@ class Products (ViewSet):
         # filter for the 'home' view
         if limit:
             products = Product.objects.order_by('-created_at')[0:int(limit)]
-
+        elif category is not None:
+            products = Product.objects.filter(product_type_id=category)
         # filter for the 'myProducts' view
-        if user == "true":
+        elif user == "true":
             products = Product.objects.filter(customer_id=request.auth.user.customer.id)
+        else:
+            products = Product.objects.all()
+
+        
+
 
         serializer = ProductSerializer(
             products,
