@@ -38,18 +38,6 @@ class Products (ViewSet):
 
         product_name = self.request.query_params.get('name')
 
-        if limit is None:
-            products = Product.objects.all()
-        else:
-            products = Product.objects.order_by('-created_at')[0:int(limit)]
-
-        if location is not None:
-            products = products.filter(location = location)
-
-        if product_name is not None:
-            products = products.filter(name = product_name)
-        products = Product.objects.all()
-
         # filter for the 'home' view
         if limit:
             products = Product.objects.order_by('-created_at')[0:int(limit)]
@@ -61,7 +49,12 @@ class Products (ViewSet):
         else:
             products = Product.objects.all()
 
-        
+        # filters for Search
+        if location is not None:
+            products = products.filter(location = location)
+
+        if product_name is not None:
+            products = products.filter(name = product_name)
 
 
         serializer = ProductSerializer(
