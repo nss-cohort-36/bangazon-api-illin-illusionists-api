@@ -96,7 +96,9 @@ class Products (ViewSet):
         """
         try:
             productItem = Product.objects.get(pk=pk)
-            productItem.delete()
+            # restrict users to only being able to delete products they've created
+            if productItem.customer_id == request.auth.user.customer.id:
+                productItem.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
