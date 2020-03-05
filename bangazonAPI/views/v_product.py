@@ -34,6 +34,8 @@ class Products (ViewSet):
 
         location = self.request.query_params.get('location')
 
+        product_name = self.request.query_params.get('name')
+
         if limit is None:
             products = Product.objects.all()
         else:
@@ -41,6 +43,9 @@ class Products (ViewSet):
 
         if location is not None:
             products = products.filter(location = location)
+
+        if product_name is not None:
+            products = products.filter(name = product_name)
 
         serializer = ProductSerializer(
             products,
