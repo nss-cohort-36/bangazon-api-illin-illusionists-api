@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework import serializers
 from rest_framework import status
 from bangazonAPI.models import OrderProduct, Product, Order, Customer
+from django.db.models import Sum, Count
 
 
 class OrderProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -52,11 +53,14 @@ class OrderProducts(ViewSet):
 
         product_id = request.query_params.get('product')
         order_id = request.query_params.get('order', None)
+        open_order_products = request.query_params.get('open_order_products', None)
 
         if product_id:
             order_products = OrderProduct.objects.filter(product_id=product_id)
         elif order_id is not None:
             order_products = OrderProduct.objects.filter(order__id=order_id)
+        elif open_order_products == "true":
+            order_products = OrderProduct.objects.filter(order__payment_type=None)
         else:
             order_products = OrderProduct.objects.all()
 
