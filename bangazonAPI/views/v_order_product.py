@@ -50,9 +50,12 @@ class OrderProducts(ViewSet):
             Response -- JSON list of serialized Order Product list
         """
 
+        product_id = request.query_params.get('product')
         order_id = request.query_params.get('order', None)
-        
-        if order_id is not None:
+
+        if product_id:
+            order_products = OrderProduct.objects.filter(product_id=product_id)
+        elif order_id is not None:
             order_products = OrderProduct.objects.filter(order__id=order_id)
         else:
             order_products = OrderProduct.objects.all()
