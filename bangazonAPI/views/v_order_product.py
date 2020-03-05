@@ -60,7 +60,8 @@ class OrderProducts(ViewSet):
         elif order_id is not None:
             order_products = OrderProduct.objects.filter(order__id=order_id)
         elif open_order_products == "true":
-            order_products = OrderProduct.objects.filter(order__payment_type=None)
+            order_products = OrderProduct.objects.filter(order__payment_type=None).annotate(Count('product_id')).values('product_id').order_by()
+                # .aggregate(Count('order_id'))
         else:
             order_products = OrderProduct.objects.all()
 
