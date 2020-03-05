@@ -31,11 +31,17 @@ class Products (ViewSet):
             Response -- JSON serialized product instance
         """
         limit = self.request.query_params.get('limit')
+        user = self.request.query_params.get('self')
 
-        if limit is None:
-            products = Product.objects.all()
-        else:
+        products = Product.objects.all()
+
+        # filter for the 'home' view
+        if limit:
             products = Product.objects.order_by('-created_at')[0:int(limit)]
+
+        # filter for the 'myProducts' view
+        if user == "true":
+            products = Product.objects.filter(customer_id=request.auth.user.customer.id)
 
         serializer = ProductSerializer(
             products,
@@ -90,7 +96,9 @@ class Products (ViewSet):
         """
         try:
             productItem = Product.objects.get(pk=pk)
-            productItem.delete()
+            # restrict users to only being able to delete products they've created
+            if productItem.customer_id == request.auth.user.customer.id:
+                productItem.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
