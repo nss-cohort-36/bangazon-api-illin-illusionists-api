@@ -31,18 +31,18 @@ class Products (ViewSet):
             Response -- JSON serialized product instance
         """
         limit = self.request.query_params.get('limit')
-
-
-        if limit is None:
-            products = Product.objects.all()
-        else:
-            products = Product.objects.order_by('-created_at')[0:int(limit)]
-
-        products = Product.objects.all()
         category = self.request.query_params.get('category', None)
 
-        if category is not None:
-            products = products.filter(product_type_id=category)
+
+        if limit is not None:
+            products = Product.objects.order_by('-created_at')[0:int(limit)]
+        elif category is not None:
+            products = Product.objects.filter(product_type_id=category)
+        else:
+            products = Product.objects.all()
+
+        
+
             
         serializer = ProductSerializer(
             products,
