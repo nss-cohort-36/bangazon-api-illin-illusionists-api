@@ -34,6 +34,9 @@ class Products (ViewSet):
         category = self.request.query_params.get('category', None)
         user = self.request.query_params.get('self')
 
+        location = self.request.query_params.get('location')
+
+        product_name = self.request.query_params.get('name')
 
         # filter for the 'home' view
         if limit:
@@ -46,7 +49,12 @@ class Products (ViewSet):
         else:
             products = Product.objects.all()
 
-        
+        # filters for Search
+        if location is not None:
+            products = products.filter(location = location)
+
+        if product_name is not None:
+            products = products.filter(name = product_name)
 
 
         serializer = ProductSerializer(
