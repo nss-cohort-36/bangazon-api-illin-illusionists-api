@@ -104,9 +104,13 @@ class Orders(ViewSet):
         orders = Order.objects.all()
 
         customer_only = request.query_params.get('self', False)
+        open_order = request.query_params.get('open', False)
 
         if customer_only == 'true':
           orders = orders.filter(customer__id=request.auth.user.customer.id)
+        
+        if open_order == 'true':
+          orders = orders.filter(payment_type__id=None)
 
         serializer = OrderSerializer(
             orders,
