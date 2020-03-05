@@ -32,18 +32,23 @@ class Products (ViewSet):
         """
         limit = self.request.query_params.get('limit')
         category = self.request.query_params.get('category', None)
+        user = self.request.query_params.get('self')
 
 
-        if limit is not None:
+        # filter for the 'home' view
+        if limit:
             products = Product.objects.order_by('-created_at')[0:int(limit)]
         elif category is not None:
             products = Product.objects.filter(product_type_id=category)
+        # filter for the 'myProducts' view
+        elif user == "true":
+            products = Product.objects.filter(customer_id=request.auth.user.customer.id)
         else:
             products = Product.objects.all()
 
         
 
-            
+
         serializer = ProductSerializer(
             products,
             many=True,
@@ -97,7 +102,9 @@ class Products (ViewSet):
         """
         try:
             productItem = Product.objects.get(pk=pk)
-            productItem.delete()
+            # restrict users to only being able to delete products they've created
+            if productItem.customer_id == request.auth.user.customer.id:
+                productItem.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
