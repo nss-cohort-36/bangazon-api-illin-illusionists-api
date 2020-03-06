@@ -17,7 +17,7 @@ class TestSearch(TestCase):
         self.user = User.objects.create_user(username=self.username, password=self.password)
         self.token = Token.objects.create(user=self.user)
         self.customer = Customer.objects.create(user=self.user)
-        self.product_type = ProductType.objects.create
+        self.product_type = ProductType.objects.create(name="Test Object")
 
     def test_post_product(self):
         # define a product to be sent to the API
@@ -29,19 +29,20 @@ class TestSearch(TestCase):
               "quantity": 1,
               "location": "Once-ler's Factory",
               "image_path": "UNLESS.jpg",
-              "product_type": self.product_type.id
+              "product_type_id": self.product_type.id
             }
 
         #  Use the client to send the request and store the response
         response = self.client.post(
-            reverse('parkarea-list'), new_area, HTTP_AUTHORIZATION='Token ' + str(self.token)
+            reverse('product-list'), new_product, HTTP_AUTHORIZATION='Token ' + str(self.token)
           )
+
 
         # Getting 200 back because we have a success url
         self.assertEqual(response.status_code, 200)
 
         # Query the table to see if there's one ParkArea instance in there. Since we are testing a POST request, we don't need to test whether an HTTP GET works. So, we just use the ORM to see if the thing we saved is in the db.
-        self.assertEqual(ParkArea.objects.count(), 1)
+        self.assertEqual(Product.objects.count(), 1)
 
         # And see if it's the one we just added by checking one of the properties. Here, name.
-        self.assertEqual(ParkArea.objects.get().name, 'Halloween Land')
+        self.assertEqual(Product.objects.get().name, 'Thneed')
