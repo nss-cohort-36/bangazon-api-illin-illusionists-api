@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from bangazonAPI.models import ProductType
 from bangazonAPI.models import Customer
+from unittest import skip
 
 
 class TestSearch(TestCase):
@@ -18,7 +19,7 @@ class TestSearch(TestCase):
         self.token = Token.objects.create(user=self.user)
         self.customer = Customer.objects.create(user=self.user)
         self.product_type = ProductType.objects.create(name="Test Object")
-
+    
     def test_post_product(self):
         # define a product to be sent to the API
         new_product = {
@@ -46,11 +47,11 @@ class TestSearch(TestCase):
 
         # And see if it's the one we just added by checking one of the properties. Here, name.
         self.assertEqual(Product.objects.get().name, 'Thneed')
-
+    
     def test_get_products(self):
         new_product = Product.objects.create(
               name = "Thneed",
-              customer = self.customer.id,
+              customer_id = self.customer.id,
               price = 12.67,
               description = "A fine something that all people need",
               quantity = 1,
