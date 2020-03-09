@@ -34,7 +34,7 @@ class Products (ViewSet):
         limit = self.request.query_params.get('limit')
         category = self.request.query_params.get('category', None)
         user = self.request.query_params.get('self')
-        favorite = self.request.query_params.get('customer_id')
+        # favorite = self.request.query_params.get('fav')
         location = self.request.query_params.get('location')
 
         product_name = self.request.query_params.get('name')
@@ -146,26 +146,26 @@ class Products (ViewSet):
 
 
     # filter by favorite sellers
-    # @action(methods=["get"], detail=False)
-    # def favorite(self, request, fav):
-    #     """Custom GET requests for all products by favorited sellers
+    @action(methods=["get"], detail=False)
+    def favorite(self, request, fav):
+        """Custom GET requests for all products by favorited sellers
 
-    #     Returns:
-    #         Response -- JSON serialized product instance
-    #     """
+        Returns:
+            Response -- JSON serialized product instance
+        """
         
-    #     favorites = self.request.query_params.get('customer')
+        favorites = self.request.query_params.get('customer')
 
-    #     if favorites:
-    #         products = Product.objects.filter(customer_id=favorites).order_by('customer_id')
-    #     else: 
-    #         products = []
+        if favorites:
+            products = Product.objects.filter(customer_id=favorites).order_by('customer_id')
+        else: 
+            products = []
 
-    #     serializer = ProductSerializer(
-    #         products,
-    #         many=True,
-    #         context={'request': request}
-    #     )
+        serializer = ProductSerializer(
+            products,
+            many=True,
+            context={'request': request}
+        )
 
 
-    #     return Response(serializer.data)
+        return Response(serializer.data)
