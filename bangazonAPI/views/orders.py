@@ -104,9 +104,13 @@ class Orders(ViewSet):
         orders = Order.objects.all()
 
         customer_only = request.query_params.get('self', False)
+        open_order = request.query_params.get('open', False)
 
         if customer_only == 'true':
           orders = orders.filter(customer__id=request.auth.user.customer.id)
+        
+        if open_order == 'true':
+          orders = orders.filter(payment_type__id=None)
 
         serializer = OrderSerializer(
             orders,
@@ -117,3 +121,15 @@ class Orders(ViewSet):
         
         
         
+    def patch(self, request, pk=None):
+        """Handle PATCH requests for an individual order item
+           to update only the payment_type
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        updated_order = Order.objects.get(pk=pk)
+        updated_order.payment_type_id = request.data["payment_type"]  
+
+        updated_order.save()
+
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
