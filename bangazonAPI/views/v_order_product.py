@@ -68,22 +68,22 @@ class OrderProducts(ViewSet):
         )
         return Response(serializer.data)
 
-    # def create(self, request):
-    #     """
-    #     Handles POST request for Order Product
+    def create(self, request):
+        """
+        Handles POST request for Order Product
 
-    #     Returns:
-    #         Response -- JSON serialized Order Product instance
-    #     """
-    #     new_order_product = OrderProduct()
-    #     new_order_product.order_id = request.data['order_id']
-    #     new_order_product.product_id = request.data['product_id']
+        Returns:
+            Response -- JSON serialized Order Product instance
+        """
+        new_order_product = OrderProduct()
+        new_order_product.order_id = request.data['order_id']
+        new_order_product.product_id = request.data['product_id']
 
-    #     new_order_product.save()
+        new_order_product.save()
 
-    #     serializer = OrderProductSerializer(new_order_product, context={'request': request})
+        serializer = OrderProductSerializer(new_order_product, context={'request': request})
 
-    #     return Response(serializer.data)
+        return Response(serializer.data)
 
     def update(self, request, pk=None):
         """
