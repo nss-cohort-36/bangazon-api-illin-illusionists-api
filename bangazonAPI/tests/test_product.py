@@ -106,6 +106,9 @@ class TestProduct(TestCase):
         # This is checking for the GET request result, not the POST.
         # We already checked that POST works in the previous test (WOO)
         self.assertEqual(response.status_code, 200)
+        # import pdb; pdb.set_trace()
+
+        self.assertEqual(response.data['name'], new_product.name)
 
         # response.data is the python serialized data used to render the JSON,
         # while response.content is the JSON itself
@@ -116,6 +119,10 @@ class TestProduct(TestCase):
         # Finally, test the actual rendered content as the client would receive it
         # .encode converts from unicode to utf-8.
         self.assertIn(new_product.name.encode(), response.content)
+
+        ###
+        bad_response = self.client.get(reverse('product-detail', kwargs={'pk': 2}))
+        self.assertEqual(bad_response.status_code, 500)
 
     def test_destroy_product(self):
 
