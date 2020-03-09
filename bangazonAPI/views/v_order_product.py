@@ -138,3 +138,41 @@ class OrderProducts(ViewSet):
             new_order_product, context={'request': request})
 
         return Response(serializer.data)
+   
+    # @action(detail=False, methods=['post'])
+    # def cart_delete(self, request, pk=None):
+    #     """Handle DELETE requests for a single order product on an open order
+    #     Returns:
+    #         Response -- 200, 404, or 500 status code
+    #     """
+
+    #     current_user = Customer.objects.get(user=request.auth.user.customer.id)
+
+    #     try:
+    #         open_order = Order.objects.get(
+    #             customer=current_user, payment_type=None)
+
+    #     except Order.DoesNotExist:
+    #         pass
+        
+    #     try:
+    #         order_product = OrderProduct.objects.get(pk=pk)
+    #         order_product.delete()
+
+    #         return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+    #     except OrderProduct.DoesNotExist as ex:
+    #         return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+    #     except Exception as ex:
+    #         return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    #     new_order_product = OrderProduct()
+    #     new_order_product.order_id = open_order.id
+    #     new_order_product.product_id = request.data['product_id']
+    #     new_order_product.save()
+
+    #     serializer = OrderProductSerializer(
+    #         new_order_product, context={'request': request})
+
+    #     return Response(serializer.data)
