@@ -4,6 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
+from rest_framework.decorators import action
 from bangazonAPI.models import Product, ProductType
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -33,14 +34,16 @@ class Products (ViewSet):
         limit = self.request.query_params.get('limit')
         category = self.request.query_params.get('category', None)
         user = self.request.query_params.get('self')
-
+        # favorite = self.request.query_params.get('fav')
         location = self.request.query_params.get('location')
 
         product_name = self.request.query_params.get('name')
 
+
         # filter for the 'home' view
         if limit:
             products = Product.objects.order_by('-created_at')[0:int(limit)]
+        # filter by Product Type
         elif category is not None:
             products = Product.objects.filter(product_type_id=category)
         # filter for the 'myProducts' view
@@ -55,6 +58,7 @@ class Products (ViewSet):
 
         if product_name is not None:
             products = products.filter(name = product_name)
+        
 
 
         serializer = ProductSerializer(
@@ -139,3 +143,29 @@ class Products (ViewSet):
         productItem.product_type_id = request.data["product_type_id"]
         productItem.save()
         return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+
+    # filter by favorite sellers
+    @action(methods=["get"], detail=False)
+    def favorite(self, request, fav):
+        """Custom GET requests for all products by favorited sellers
+
+        Returns:
+            Response -- JSON serialized product instance
+        """
+        
+        favorites = self.request.query_params.get('customer')
+
+        if favorites:
+            products = Product.objects.filter(customer_id=favorites).order_by('customer_id')
+        else: 
+            products = []
+
+        serializer = ProductSerializer(
+            products,
+            many=True,
+            context={'request': request}
+        )
+
+
+        return Response(serializer.data)

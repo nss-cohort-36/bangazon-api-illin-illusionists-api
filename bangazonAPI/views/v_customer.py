@@ -23,9 +23,9 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
 
-        fields = ('id', 'url', 'user_id','user', 'address', 'city', 'phone')
+        fields = ('id', 'url', 'user_id','user', 'address', 'city', 'phone', 'my_products')
         # customer is not currently a field
-        depth = 2
+        depth = 4
 
 class Customers(ViewSet):
     def retrieve(self, request, pk=None):
