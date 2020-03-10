@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework import serializers
 from rest_framework import status
 from bangazonAPI.models import OrderProduct, Product, Order, Customer, Favorite
+from bangazonAPI.views.v_product import ProductSerializer
 
 
 class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
@@ -21,7 +22,7 @@ class FavoriteSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         fields = ('id', 'current_user_id', 'favorite_user_id')
-        depth = 2
+        depth = 1
 
 
 class Favorites(ViewSet):
@@ -50,17 +51,20 @@ class Favorites(ViewSet):
             Response -- JSON list of serialized Order Product list
         """
 
-        # current_user_id = request.query_params.get('current_user')
-        # favorite_user_id = request.query_params.get('order', None)
+        # get current user id
+        current_user_id = request.auth.user.customer.id
 
-        # if product_id:
-        #     order_products = Favorite.objects.filter(product_id=product_id)
-        # elif order_id is not None:
-        #     order_products = Favorite.objects.filter(order__id=order_id)
-        # else:
-        #     order_products = Favorite.objects.all()
+        # get favorites by customer user id
+        # favorites = Favorite.objects.filter(current_user=current_user_id).select_related('favorite_user__user')
+        favorites = Favorite.objects.filter(current_user=current_user_id).values()
 
-        favorites = Favorite.objects.all()
+        # products = Product.objects.filter(customer_id__in=favorites)[:1]
+        
+
+        # get products by favorite user id
+        # customer = Customer.objects.filter(id__in=favorites)
+        # Model1.objects.extra(where = ['field in (SELECT field from myapp_model2 WHERE ...)'])
+        # products = Product.objects.extra(where = ['field in (SELECT * from Product WHERE customer == favorites.favorite_user)'])
 
 
         serializer = FavoriteSerializer(

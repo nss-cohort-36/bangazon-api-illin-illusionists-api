@@ -11,7 +11,7 @@ class Product(SafeDeleteModel):
     _safedelete_policy = HARD_DELETE_NOCASCADE
 
     name = models.CharField(max_length=55)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='favorite')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='my_products')
     price = models.FloatField()
     description = models.CharField(max_length=255)
     quantity = models.IntegerField()
